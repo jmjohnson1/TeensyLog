@@ -29,7 +29,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE  OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-#include "ArduinoLog.h"
+#include "TeensyLog.h"
 
 void Logging::begin(int level, Print* logOutput, bool showLevel)
 {

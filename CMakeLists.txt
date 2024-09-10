@@ -11,7 +11,7 @@ set(CMAKE_TOOLCHAIN_FILE "${teensytools_SOURCE_DIR}/cmake/mcu_toolchain.cmake")
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 project(
 	TeensyLogger
-	VERSION 1.0
+	VERSION 1.0.1
 	LANGUAGES C CXX
 )
 # Sets compiler and linker options as well as some definitions
@@ -26,16 +26,16 @@ FetchContent_Declare(
 FetchContent_MakeAvailable(teensy4)
 
 # Logger library
-add_library(ArduinoLog
-	${CMAKE_SOURCE_DIR}/src/ArduinoLog.cpp
+add_library(TeensyLog
+	${CMAKE_CURRENT_SOURCE_DIR}/src/TeensyLog.cpp
 )
 
-target_include_directories(ArduinoLog PUBLIC
+target_include_directories(TeensyLog PUBLIC
 	$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
 	$<INSTALL_INTERFACE:include>
 )
 
-target_link_libraries(ArduinoLog PUBLIC
+target_link_libraries(TeensyLog PUBLIC
 	Teensy4
 )
 
@@ -45,10 +45,10 @@ if (PROJECT_NAME STREQUAL CMAKE_PROJECT_NAME)
 	)
 
 	target_link_libraries(LoggingTest PRIVATE
-		ArduinoLog
+		TeensyLog
 	)
 
 	# Make test program
 	include(${teensytools_SOURCE_DIR}/cmake/mcu_upload.cmake)
-	flashMcu(LoggingTest ${CMAKE_SOURCE_DIR})
+	flashMcu(LoggingTest ${teensytools_SOURCE_DIR})
 endif()
